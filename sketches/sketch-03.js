@@ -55,7 +55,7 @@ class Agent {
     context.translate(this.pos.x, this.pos.y);
 
     context.lineWidth = 4;
-
+    context.fillStyle = 'hsl(' + 360 * Math.random() + ', 50%, 50%)';
     context.beginPath();
     context.arc(0, 0, this.radius, 0, Math.PI * 2);
     context.fill();
