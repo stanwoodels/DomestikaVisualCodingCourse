@@ -23,6 +23,7 @@ const sketch = ({ context, width, height }) => {
     agents.forEach(agent => {
       agent.update();
       agent.draw(context);
+      agent.bounce(width, height);
     })
   };
 };
@@ -43,10 +44,14 @@ class Agent {
     this.radius = random.range(4, 12);
   }
 
+  bounce(width, height) {
+    if ((this.pos.x + (this.radius * -1)) <= 0 || (this.pos.x + this.radius) >= width) this.vel.x *= -1;
+    if ((this.pos.y + (this.radius * -1)) <= 0 || (this.pos.y + this.radius) >= height) this.vel.y *= -1;
+  }
+
   update() {
     this.pos.x += this.vel.x;
     this.pos.y += this.vel.y;
-    //this.radius += (Math.random() > 0.5) ? 1 : -1;
   }
 
   draw(context) {
@@ -55,7 +60,7 @@ class Agent {
     context.translate(this.pos.x, this.pos.y);
 
     context.lineWidth = 4;
-    context.fillStyle = 'hsl(' + 360 * Math.random() + ', 50%, 50%)';
+    //context.fillStyle = 'hsl(' + 360 * Math.random() + ', 50%, 50%)';
     context.beginPath();
     context.arc(0, 0, this.radius, 0, Math.PI * 2);
     context.fill();
