@@ -17,12 +17,17 @@ const params = {
   amp: 0.2,
   frame: 0,
   animate: true,
-  lineCap: 'butt'
+  lineCap: 'butt',
+  red: 0,
+  green: 0,
+  blue: 0,
+  darkMode: false
 }
 
 const sketch = () => {
   return ({ context, width, height, frame }) => {
-    context.fillStyle = 'white';
+    const fill = params.darkMode ? 'black' : 'white';
+    context.fillStyle = fill;
     context.fillRect(0, 0, width, height);
 
     const cols = params.cols;
@@ -50,8 +55,6 @@ const sketch = () => {
       //const n = random.noise2D(x + frame * 10, y, params.freq);
       const n = random.noise3D(x, y, f * 10, params.freq);
       const angle = n * Math.PI * params.amp;
-      //const scale = (n + 1) / 2 * 30;
-      //const scale = (n * 0.5 + 0.5) * 30;
       const scale = math.mapRange(n, -1, 1, params.scaleMin, params.scaleMax);
 
       context.save();
@@ -63,6 +66,7 @@ const sketch = () => {
       context.lineWidth = scale;
       context.lineCap = params.lineCap;
 
+      context.strokeStyle = `rgb(${params.red},${params.green},${params.blue})`;
       context.beginPath();
       context.moveTo(w * -0.5, 0);
       context.lineTo(w *  0.5, 0);
@@ -83,6 +87,10 @@ const createPane = () => {
   folder.addInput(params, 'rows', { min: 2, max: 50, step: 1});
   folder.addInput(params, 'scaleMin', { min: 1, max: 100 });
   folder.addInput(params, 'scaleMax', { min: 1, max: 100 });
+  folder.addInput(params, 'red', { min: 0, max: 255, step: 1 });
+  folder.addInput(params, 'green', { min: 0, max: 255, step: 1 });
+  folder.addInput(params, 'blue', { min: 0, max: 255, step: 1 });
+  folder.addInput(params, 'darkMode');
 
   folder = pane.addFolder({ title: 'Noise' });
   folder.addInput(params, 'freq', { min: -0.01, max: 0.01 });
