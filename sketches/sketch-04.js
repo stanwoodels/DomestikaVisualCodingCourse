@@ -17,7 +17,7 @@ const params = {
   amp: 0.2,
   frame: 0,
   animate: true,
-  lineCap: 'butt',
+  lineCap: 'round',
   red: 0,
   green: 0,
   blue: 0,
@@ -81,22 +81,24 @@ const createPane = () => {
   const pane = new Tweakpane.Pane();
   let folder;
 
-  folder = pane.addFolder({ title: 'Grid '});
+  folder = pane.addFolder({ title: 'Grid'});
   folder.addInput(params, 'lineCap', { options: { butt: 'butt', round: 'round', square: 'square'}});
   folder.addInput(params, 'cols', { min: 2, max: 50, step: 1});
   folder.addInput(params, 'rows', { min: 2, max: 50, step: 1});
   folder.addInput(params, 'scaleMin', { min: 1, max: 100 });
   folder.addInput(params, 'scaleMax', { min: 1, max: 100 });
-  folder.addInput(params, 'red', { min: 0, max: 255, step: 1 });
-  folder.addInput(params, 'green', { min: 0, max: 255, step: 1 });
-  folder.addInput(params, 'blue', { min: 0, max: 255, step: 1 });
-  folder.addInput(params, 'darkMode');
 
   folder = pane.addFolder({ title: 'Noise' });
   folder.addInput(params, 'freq', { min: -0.01, max: 0.01 });
   folder.addInput(params, 'amp', { min: 0, max: 1 });
   folder.addInput(params, 'animate');
   folder.addInput(params, 'frame', { min: 0, max: 999 });
+
+  folder = pane.addFolder({ title: 'Colors'});
+  folder.addInput(params, 'red', { min: 0, max: 255, step: 1 });
+  folder.addInput(params, 'green', { min: 0, max: 255, step: 1 });
+  folder.addInput(params, 'blue', { min: 0, max: 255, step: 1 });
+  folder.addInput(params, 'darkMode');
 }
 
 createPane();
